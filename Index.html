@@ -9,7 +9,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Added UnifrakturMaguntia for the ornate heading and kept Montserrat for body text -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <!-- This link just keeps Montserrat for the body text -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- This new style block loads your local font file -->
+<style>
+    @font-face {
+      font-family: 'GothicBlackletter'; /* This is the name we'll use for the font */
+      src: url('./Fonts/Olondon_.otf') format('opentype');
+    }
+</style>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -84,7 +93,7 @@
 
         <!-- ===== THANK YOU MESSAGE SECTION (Initially Hidden) ===== -->
         <div id="thank-you-message" class="hidden">
-            <h1 class="font-ornate text-5xl md:text-6xl text-brand-heading mb-2" style="text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">Much Obliged!</h1>
+            <h1 class="font-ornate text-5xl md:text-6xl text-brand-heading mb-2" style="text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">Thank You!</h1>
             <p class="text-base leading-relaxed mt-4">Your response has been received. We hope to celebrate with you!</p>
         </div>
 
