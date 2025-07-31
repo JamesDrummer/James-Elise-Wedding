@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - James & Elise's Wedding</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'GothicBlackletter'; /* This is the name we'll use for the font */
+            src: url('./Fonts/Olondon_.otf') format('opentype'); /* Ensure this path is correct */
+        }
+    </style>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        ornate: ['"GothicBlackletter"'],
+                        montserrat: ['"Montserrat"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#121212',
+                        'brand-card': '#1e1e1e',
+                        'brand-text': '#d1d5db', // gray-300
+                        'brand-heading': '#ffffff',
+                        'brand-primary': '#6d28d9', // violet-700
+                        'brand-primary-dark': '#5b21b6', // violet-800
+                        'brand-accent': '#f59e0b', // amber-500
+                        'brand-border': '#4b5563', // gray-600
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark font-montserrat text-brand-text flex justify-center items-center min-h-screen p-5">
+
+    <main class="bg-brand-card border border-brand-border p-8 md:p-12 rounded-xl shadow-2xl shadow-brand-primary/10 max-w-2xl w-full text-left transition-opacity duration-500 ease-in-out">
+
+        <h1 class="font-ornate text-5xl md:text-6xl text-brand-heading mb-4 text-center" style="text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">Privacy Policy</h1>
+        <p class="text-center text-sm text-brand-text mb-8 border-b border-brand-border pb-6">Last Updated: July 31, 2025</p>
+
+        <section class="prose prose-invert prose-p:text-brand-text prose-a:text-brand-accent prose-h2:text-brand-heading prose-h3:text-brand-heading max-w-none">
+            <p>This Privacy Policy explains how James & Elise, the organizers of the wedding, collect, use, and protect the personal information you provide when you respond through this website.</p>
+
+            <h2>1. Who We Are</h2>
+            <p>This website is operated by James & Elise for the sole purpose of managing details for our upcoming wedding.</p>
+
+            <h2>2. Information We Collect</h2>
+            <p>When you submit this form, we collect the following personal information:</p>
+            <ul>
+                <li><strong>Your Name(s):</strong> To identify you and your party.</li>
+                <li><strong>Postal Address:</strong> If you indicate you are attending, this is collected to send you a physical wedding invitation.</li>
+                <li><strong>Attendance Status:</strong> Whether you are attending or not.</li>
+            </ul>
+
+            <h2>3. How We Collect Information</h2>
+            <p>We collect this information directly from you when you voluntarily fill out and submit the form on this website, and store it in a Google Sheet.</p>
+
+            <h2>4. How We Use Your Information</h2>
+            <p>We use the collected information for the following purposes:</p>
+            <ul>
+                <li>To process your responseand manage our guest list.</li>
+                <li>To send you a physical wedding invitation if you indicate you are attending.</li>
+                <li>To contact you with essential updates or questions regarding the wedding, if necessary.</li>
+            </ul>
+
+            <h2>5. How We Share Your Information</h2>
+            <p>We value your privacy and will not sell, rent, or trade your personal information to third parties for marketing purposes. Your information will only be shared with:</p>
+            <ul>
+                <li><strong>N8N Workflow:</strong> The data you submit is securely sent via a Netlify serverless function to our personal n8n workflow for automated processing and organization of RSVPs. This workflow is managed by James and is not publicly accessible.</li>
+                <li><strong>Postal Services:</strong> Your postal address will be used for mailing your physical invitation via standard postal services.</li>
+                <li><strong>Google Sheets:</strong>for guest list management</li>
+            </ul>
+
+            <h2>6. Data Storage and Security</h2>
+            <p>The information you submit through the form is encrypted in transit using HTTPS. It is then processed by a secure Netlify serverless function, which forwards it to our n8n workflow. Once received by n8n, it is stored in a Google Sheet. We take reasonable steps to protect the information from unauthorized access, disclosure, alteration, or destruction. However, no internet transmission or electronic storage is 100% secure.</p>
+
+            <h2>7. Data Retention</h2>
+            <p>We will retain your personal information only for as long as necessary to fulfill the purposes for which it was collected, including for the duration of the wedding planning process and to send out the physical invitations. Once the wedding has passed and invitations have been sent, we will delete the data within 6 months.</p>
+
+            <h2>8. Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li><strong>Access:</strong> Request access to the personal information we hold about you.</li>
+                <li><strong>Correction:</strong> Request that we correct any inaccurate or incomplete information.</li>
+                <li><strong>Deletion:</strong> Request that we delete your personal information from our records.</li>
+                <li><strong>Withdraw Consent:</strong> If you previously consented to any specific use of your data, you can withdraw that consent.</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us at Bracey2b@gmail.com.</p>
+
+            <h2>9. Links to Other Websites</h2>
+            <p>This website may contain links to other sites. Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.</p>
+
+            <h2>10. Hosting Information (Netlify)</h2>
+            <p>This website is hosted on Netlify, which provides the static site hosting and serverless functions that power this RSVP form. Netlify may collect data related to website traffic and usage for operational purposes. Please refer to the <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Netlify Privacy Policy</a> for details on their data collection practices.</p>
+
+            <h2>11. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page with an updated "Last Updated" date.</p>
+
+            <h2>12. Contact Us</h2>
+            <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
+            <p>Bracey2b@gmail.com</p>
+            </section>
+        
+        <p class="text-center mt-8">
+            <a href="index.html" class="inline-block bg-brand-primary text-white p-3 rounded-lg text-md font-medium cursor-pointer hover:bg-brand-primary-dark transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-card focus:ring-brand-accent">Back to RSVP Form</a>
+        </p>
+
+    </main>
+
+</body>
+</html>
