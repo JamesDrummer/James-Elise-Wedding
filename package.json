@@ -17,9 +17,5 @@
   "license": "MIT",
   "dependencies": {
     "node-fetch": "^2.6.7"  
-    // Note: I'm using an older 2.x version as it's common in Netlify functions.
-    // If you were starting a new project with pure Node.js, you'd use node-fetch@3
-    // and import it differently, but for Netlify Functions, 2.x is often expected
-    // for 'require' syntax.
   }
 }
