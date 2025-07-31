@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>James & Elise's Wedding RSVP</title>
     
-    <!-- Google Fonts for an elegant and gothic look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Added UnifrakturMaguntia for the ornate heading and kept Montserrat for body text -->
-    <!-- This link just keeps Montserrat for the body text -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- This new style block loads your local font file -->
-<style>
-    @font-face {
-      font-family: 'GothicBlackletter'; /* This is the name we'll use for the font */
-      src: url('./Fonts/Olondon_.otf') format('opentype');
-    }
-</style>
+    <style>
+        @font-face {
+            font-family: 'GothicBlackletter'; /* This is the name we'll use for the font */
+            src: url('./Fonts/Olondon_.otf') format('opentype'); /* Ensure this path is correct */
+        }
+    </style>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -27,27 +23,17 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        // Using the new Google Font for the ornate style
                         ornate: ['"GothicBlackletter"'],
-                        // A clean sans-serif for body text
                         montserrat: ['"Montserrat"', 'sans-serif'],
                     },
                     colors: {
-                        // Dark background color
                         'brand-dark': '#121212',
-                        // Slightly lighter background for the main card
                         'brand-card': '#1e1e1e',
-                        // Light text color for readability
                         'brand-text': '#d1d5db', // gray-300
-                        // White for main headings to pop
                         'brand-heading': '#ffffff',
-                        // Primary accent color (purple from your invite)
                         'brand-primary': '#6d28d9', // violet-700
-                        // Darker purple for hover states
                         'brand-primary-dark': '#5b21b6', // violet-800
-                        // Secondary accent color (yellow from sunflowers)
                         'brand-accent': '#f59e0b', // amber-500
-                        // Border color for inputs and dividers
                         'brand-border': '#4b5563', // gray-600
                     }
                 }
@@ -59,16 +45,13 @@
 
     <main class="bg-brand-card border border-brand-border p-8 md:p-12 rounded-xl shadow-2xl shadow-brand-primary/10 max-w-2xl w-full text-center transition-opacity duration-500 ease-in-out">
 
-        <!-- ===== RSVP FORM SECTION ===== -->
         <div id="form-container">
-            <!-- Updated font and added a subtle text shadow for an ornate effect -->
             <h1 class="font-ornate text-5xl md:text-6xl text-brand-heading mb-4" style="text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">Elise & James' Wedding</h1>
             <h2 class="font-montserrat font-normal text-xl text-brand-text mt-0 mb-8 border-b border-brand-border pb-6">Battle Abbey School | 8th August 2026</h2>
             <p class="text-base leading-relaxed mb-6">We request the pleasure of your company as we celebrate our marriage. Please let us know your plans by filling out the form below.</p>
             
             <form id="rsvp-form" class="text-left">
                 
-                <!-- Field 1: Attendance Dropdown -->
                 <label for="attendance" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Will you be able to join us? <span class="text-red-500">*</span></label>
                 <select id="attendance" name="attendance" required class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
                     <option value="" disabled selected>Please select an option...</option>
@@ -76,22 +59,19 @@
                     <option value="no">No, we shall toast from afar.</option>
                 </select>
 
-                <!-- Field 2: Attending Guests (Initially Hidden) -->
                 <div id="attendees-container" class="hidden">
-                    <label for="attendees" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Names of all attending guests from your household:</label>
-                    <textarea id="attendees" name="attendees" placeholder="e.g., Lord John Smith, Lady Jane Smith" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
+                    <label for="attendees" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Names of all attending guests from your household: <span class="text-red-500">*</span></label>
+                    <textarea id="attendees" name="attendees" placeholder="e.g., John Smith, Jane Smith" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
                 </div>
                 
-                <!-- Field 3: Physical Address (Required) -->
-                <label for="address" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Mailing address for physical invite: <span class="text-red-500">*</span></label>
-                <textarea id="address" name="address" placeholder="123 Abbey Road&#10;Battle, East Sussex&#10;Postcode" required class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
+                <label for="address" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Mailing address for physical invite:</label>
+                <textarea id="address" name="address" placeholder="123 place Road&#10;Location, Wider Location &#10;Postcode" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
 
                 <button type="submit" class="w-full bg-brand-primary text-white p-4 rounded-lg text-lg font-medium cursor-pointer mt-8 hover:bg-brand-primary-dark transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-card focus:ring-brand-accent">Send Response</button>
 
             </form>
         </div>
 
-        <!-- ===== THANK YOU MESSAGE SECTION (Initially Hidden) ===== -->
         <div id="thank-you-message" class="hidden">
             <h1 class="font-ornate text-5xl md:text-6xl text-brand-heading mb-2" style="text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">Thank You!</h1>
             <p class="text-base leading-relaxed mt-4">Your response has been received. We hope we'll be celebrating with you!</p>
@@ -103,7 +83,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             
             // --- CONFIGURATION ---
-            const webhookUrl = 'https://myn8n.brightonhovedrumlessons.uk/webhook-test/059e80f4-f0b6-4e1e-ae86-5d67195bbbf4';
+            // IMPORTANT: This URL should now point to your Netlify Function endpoint!
+            // It will look like: https://YOUR-NETLIFY-SITE-NAME.netlify.app/.netlify/functions/rsvp-forwarder
+            // OR, if you set up a custom domain on Netlify: https://yourwedding.com/.netlify/functions/rsvp-forwarder
+            const netlifyFunctionEndpoint = 'https://jameselisewedding.uk/.netlify/functions/rsvp-forwarder'; // <--- **UPDATE THIS**
             
             // --- ELEMENT SELECTORS ---
             const form = document.getElementById('rsvp-form');
@@ -118,18 +101,50 @@
             attendanceSelect.addEventListener('change', function() {
                 if (this.value === 'yes') {
                     attendeesContainer.classList.remove('hidden');
+                    // Make attendees textarea required if 'yes' is selected
+                    document.getElementById('attendees').setAttribute('required', 'required');
+                    // Make address required if 'yes' is selected
+                    document.getElementById('address').setAttribute('required', 'required');
                 } else {
                     attendeesContainer.classList.add('hidden');
+                    // Remove required attribute if 'no' is selected
+                    document.getElementById('attendees').removeAttribute('required');
+                    // Make address not required if 'no' is selected
+                    document.getElementById('address').removeAttribute('required');
                 }
             });
 
+            // Set initial state based on default selection (if any)
+            if (attendanceSelect.value === 'yes') {
+                attendeesContainer.classList.remove('hidden');
+                document.getElementById('attendees').setAttribute('required', 'required');
+                document.getElementById('address').setAttribute('required', 'required');
+            } else {
+                attendeesContainer.classList.add('hidden');
+                document.getElementById('attendees').removeAttribute('required');
+                document.getElementById('address').removeAttribute('required');
+            }
+
+
             // 2. Handle the form submission
-            form.addEventListener('submit', function(event) {
+            form.addEventListener('submit', async function(event) { // Added 'async' keyword
                 // Prevent the default form submission which reloads the page
                 event.preventDefault();
 
+                // Simple client-side validation for address if 'yes' is selected
+                if (attendanceSelect.value === 'yes' && !document.getElementById('address').value.trim()) {
+                    alert('Please provide your mailing address if you are attending.');
+                    return; // Stop submission
+                }
+                 if (attendanceSelect.value === 'yes' && !document.getElementById('attendees').value.trim()) {
+                    alert('Please provide the names of attending guests if you are attending.');
+                    return; // Stop submission
+                }
+
+
                 // Change button text to show it's working
                 const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
                 submitButton.textContent = 'Sending...';
                 submitButton.disabled = true;
 
@@ -139,51 +154,66 @@
                 // Convert FormData to a simple JavaScript object for JSON
                 const formObject = {};
                 formData.forEach((value, key) => {
-                    // Don't include empty attendees list if they say no
-                    if (key === 'attendees' && !value) return;
-                    formObject[key] = value;
+                    // Only include attendees if attendance is 'yes' and value is not empty
+                    if (key === 'attendees' && (attendanceSelect.value !== 'yes' || !value.trim())) {
+                        return; // Skip if not attending or attendees is empty when not required
+                    }
+                     // Only include address if attendance is 'yes' and value is not empty
+                    if (key === 'address' && (attendanceSelect.value !== 'yes' || !value.trim())) {
+                        return; // Skip if not attending or address is empty when not required
+                    }
+                    formObject[key] = value.trim(); // Trim whitespace from all values
                 });
 
-                // Send the data to the webhook using the Fetch API
-                fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formObject),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        // If the server response is not OK, throw an error to be caught by .catch()
-                        throw new Error(`Network response was not ok: ${response.statusText}`);
-                    }
-                    return response.text(); 
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                    // Hide the form and show the thank you message
-                    formContainer.classList.add('hidden');
-                    thankYouMessage.classList.remove('hidden');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Remove any existing error messages before adding a new one
-                    const existingError = form.querySelector('.error-message');
-                    if (existingError) {
-                        existingError.remove();
-                    }
-                    
-                    // Use a more user-friendly modal/message instead of alert()
-                    const errorMessage = document.createElement('div');
-                    errorMessage.textContent = 'There was a problem submitting your response. Please try again or contact us directly.';
-                    errorMessage.className = 'error-message bg-red-900 border border-red-700 text-red-100 px-4 py-3 rounded-lg relative mt-4 text-center';
-                    form.prepend(errorMessage);
+                try {
+                    // Send the data to the Netlify Function endpoint
+                    const response = await fetch(netlifyFunctionEndpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formObject), // Send the JSON object
+                    });
 
-                    // Re-enable the button if there was an error
-                    submitButton.textContent = 'Send Respone';
+                    // Parse the response from the Netlify Function
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        console.log('Success:', result);
+                        // Hide the form and show the thank you message
+                        formContainer.classList.add('opacity-0'); // Start fade out
+                        setTimeout(() => {
+                            formContainer.classList.add('hidden'); // Hide after fade
+                            thankYouMessage.classList.remove('hidden');
+                            thankYouMessage.classList.add('opacity-100'); // Fade in
+                        }, 500); // Match CSS transition duration
+                        
+                    } else {
+                        // Handle errors returned by the Netlify Function (e.g., 400, 500)
+                        console.error('Error from Netlify Function:', result);
+                        showErrorMessage(result.message || 'There was a problem submitting your response. Please try again or contact us directly.');
+                    }
+                } catch (error) {
+                    console.error('Network or unknown error:', error);
+                    showErrorMessage('A network error occurred. Please check your internet connection and try again.');
+                } finally {
+                    // Re-enable the button regardless of success or failure
+                    submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;
-                });
+                }
             });
+
+            function showErrorMessage(message) {
+                const existingError = form.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                const errorMessageDiv = document.createElement('div');
+                errorMessageDiv.textContent = message;
+                errorMessageDiv.className = 'error-message bg-red-900 border border-red-700 text-red-100 px-4 py-3 rounded-lg relative mt-4 text-center';
+                form.prepend(errorMessageDiv);
+            }
         });
     </script>
 
