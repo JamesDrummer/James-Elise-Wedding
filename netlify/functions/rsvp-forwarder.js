@@ -9,7 +9,7 @@ const N8N_WEBHOOK_SECRET = process.env.N8N_WEBHOOK_SECRET;
 
 // IMPORTANT: This is the EXACT URL of your n8n Webhook trigger.
 // Ensure it is HTTPS and the full URL including the unique ID.
-const N8N_WEBHOOK_URL = 'https://myn8n.brightonhovedrumlessons.uk/webhook/059e80f4-f0b6-4e1e-ae86-5d67195bbbf4'; // <--- **REPLACE WITH YOUR ACTUAL N8N WEBHOOK URL**
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL; // <--- **Set this in your Netlify environment variables**
 
 // IMPORTANT: This header name MUST match the "Header Name" configured in your n8n Webhook trigger's Header Auth settings.
 const N8N_AUTH_HEADER_NAME = 'X-API-KEY'; // <--- **REPLACE IF YOUR N8N HEADER NAME IS DIFFERENT**
