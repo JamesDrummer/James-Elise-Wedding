@@ -55,17 +55,19 @@
                 <label for="attendance" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Will you be able to join us? <span class="text-red-500">*</span></label>
                 <select id="attendance" name="attendance" required class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
                     <option value="" disabled selected>Please select an option...</option>
-                    <option value="yes">Yes, with joy and honour!</option>
+                    <option value="yes">Yes!</option>
                     <option value="no">No, we shall toast from afar.</option>
                 </select>
 
-                <div id="attendees-container" class="hidden">
-                    <label for="attendees" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Names of all attending guests from your household: <span class="text-red-500">*</span></label>
-                    <textarea id="attendees" name="attendees" placeholder="e.g., John Smith, Jane Smith" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
+                <div id="attendees-container">
+                    <label for="attendees" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Guest Name(s): <span class="text-red-500">*</span></label>
+                    <textarea id="attendees" name="attendees" placeholder="e.g., John Smith, Jane Smith" required class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
                 </div>
                 
-                <label for="address" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Mailing address for physical invite (or name if confirming non-attendance):</label>
-                <textarea id="address" name="address" placeholder="123 place Road&#10;Location, Wider Location &#10;Postcode" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
+                <div id="address-container" class="hidden">
+                    <label for="address" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Mailing address for physical invite: <span class="text-red-500">*</span></label>
+                    <textarea id="address" name="address" placeholder="123 place Road&#10;Location, Wider Location &#10;Postcode" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition resize-y min-h-[100px]"></textarea>
+                </div>
 
                 <button type="submit" class="w-full bg-brand-primary text-white p-4 rounded-lg text-lg font-medium cursor-pointer mt-8 hover:bg-brand-primary-dark transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-card focus:ring-brand-accent">Send Response</button>
 
@@ -83,142 +85,102 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- CONFIGURATION ---
-            // IMPORTANT: This URL should now point to your Netlify Function endpoint!
-            // It will look like: https://YOUR-NETLIFY-SITE-NAME.netlify.app/.netlify/functions/rsvp-forwarder
-            // OR, if you set up a custom domain on Netlify: https://yourwedding.com/.netlify/functions/rsvp-forwarder
-            const netlifyFunctionEndpoint = 'https://jameselisewedding.uk/.netlify/functions/rsvp-forwarder'; // <--- **UPDATE THIS**
-            
-            // --- ELEMENT SELECTORS ---
-            const form = document.getElementById('rsvp-form');
-            const attendanceSelect = document.getElementById('attendance');
-            const attendeesContainer = document.getElementById('attendees-container');
-            const formContainer = document.getElementById('form-container');
-            const thankYouMessage = document.getElementById('thank-you-message');
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- CONFIGURATION ---
+        const netlifyFunctionEndpoint = 'https://jameselisewedding.uk/.netlify/functions/rsvp-forwarder';
+        
+        // --- ELEMENT SELECTORS ---
+        const form = document.getElementById('rsvp-form');
+        const attendanceSelect = document.getElementById('attendance');
+        const addressContainer = document.getElementById('address-container'); // Get the address container
+        const addressTextarea = document.getElementById('address');
+        const formContainer = document.getElementById('form-container');
+        const thankYouMessage = document.getElementById('thank-you-message');
 
-            // --- EVENT LISTENERS ---
+        // --- DYNAMIC FORM LOGIC ---
 
-            // 1. Show/Hide the "attending guests" field based on the dropdown selection
-            attendanceSelect.addEventListener('change', function() {
-                if (this.value === 'yes') {
-                    attendeesContainer.classList.remove('hidden');
-                    // Make attendees textarea required if 'yes' is selected
-                    document.getElementById('attendees').setAttribute('required', 'required');
-                    // Make address required if 'yes' is selected
-                    document.getElementById('address').setAttribute('required', 'required');
-                } else {
-                    attendeesContainer.classList.add('hidden');
-                    // Remove required attribute if 'no' is selected
-                    document.getElementById('attendees').removeAttribute('required');
-                    // Make address not required if 'no' is selected
-                    document.getElementById('address').removeAttribute('required');
-                }
+        // This function now ONLY handles the address field visibility
+        function updateAddressVisibility() {
+            if (attendanceSelect.value === 'yes') {
+                // If attending, show the address field and make it required
+                addressContainer.classList.remove('hidden');
+                addressTextarea.setAttribute('required', 'required');
+            } else {
+                // If not attending, hide the address field and remove the required attribute
+                addressContainer.classList.add('hidden');
+                addressTextarea.removeAttribute('required');
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // 1. Listen for changes on the dropdown to update the address field's visibility
+        attendanceSelect.addEventListener('change', updateAddressVisibility);
+
+        // 2. Handle the form submission
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+
+            const formData = new FormData(form);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value.trim();
             });
 
-            // Set initial state based on default selection (if any)
-            if (attendanceSelect.value === 'yes') {
-                attendeesContainer.classList.remove('hidden');
-                document.getElementById('attendees').setAttribute('required', 'required');
-                document.getElementById('address').setAttribute('required', 'required');
-            } else {
-                attendeesContainer.classList.add('hidden');
-                document.getElementById('attendees').removeAttribute('required');
-                document.getElementById('address').removeAttribute('required');
-            }
-
-
-            // 2. Handle the form submission
-            form.addEventListener('submit', async function(event) { // Added 'async' keyword
-                // Prevent the default form submission which reloads the page
-                event.preventDefault();
-
-                // Simple client-side validation for address if 'yes' is selected
-                if (attendanceSelect.value === 'yes' && !document.getElementById('address').value.trim()) {
-                    alert('Please provide your mailing address if you are attending.');
-                    return; // Stop submission
-                }
-                 if (attendanceSelect.value === 'yes' && !document.getElementById('attendees').value.trim()) {
-                    alert('Please provide the names of attending guests if you are attending.');
-                    return; // Stop submission
-                }
-
-
-                // Change button text to show it's working
-                const submitButton = form.querySelector('button[type="submit"]');
-                const originalButtonText = submitButton.textContent;
-                submitButton.textContent = 'Sending...';
-                submitButton.disabled = true;
-
-                // Create a FormData object from the form
-                const formData = new FormData(form);
-                
-                // Convert FormData to a simple JavaScript object for JSON
-                const formObject = {};
-                formData.forEach((value, key) => {
-                    // Only include attendees if attendance is 'yes' and value is not empty
-                    if (key === 'attendees' && (attendanceSelect.value !== 'yes' || !value.trim())) {
-                        return; // Skip if not attending or attendees is empty when not required
-                    }
-                     // Only include address if attendance is 'yes' and value is not empty
-                    if (key === 'address' && (attendanceSelect.value !== 'yes' || !value.trim())) {
-                        return; // Skip if not attending or address is empty when not required
-                    }
-                    formObject[key] = value.trim(); // Trim whitespace from all values
+            try {
+                const response = await fetch(netlifyFunctionEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formObject),
                 });
 
-                try {
-                    // Send the data to the Netlify Function endpoint
-                    const response = await fetch(netlifyFunctionEndpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formObject), // Send the JSON object
-                    });
+                const result = await response.json();
 
-                    // Parse the response from the Netlify Function
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        console.log('Success:', result);
-                        // Hide the form and show the thank you message
-                        formContainer.classList.add('opacity-0'); // Start fade out
-                        setTimeout(() => {
-                            formContainer.classList.add('hidden'); // Hide after fade
-                            thankYouMessage.classList.remove('hidden');
-                            thankYouMessage.classList.add('opacity-100'); // Fade in
-                        }, 500); // Match CSS transition duration
-                        
-                    } else {
-                        // Handle errors returned by the Netlify Function (e.g., 400, 500)
-                        console.error('Error from Netlify Function:', result);
-                        showErrorMessage(result.message || 'There was a problem submitting your response. Please try again or contact us directly.');
-                    }
-                } catch (error) {
-                    console.error('Network or unknown error:', error);
-                    showErrorMessage('A network error occurred. Please check your internet connection and try again.');
-                } finally {
-                    // Re-enable the button regardless of success or failure
-                    submitButton.textContent = originalButtonText;
-                    submitButton.disabled = false;
+                if (response.ok) {
+                    console.log('Success:', result);
+                    formContainer.classList.add('opacity-0');
+                    setTimeout(() => {
+                        formContainer.classList.add('hidden');
+                        thankYouMessage.classList.remove('hidden');
+                        thankYouMessage.classList.add('opacity-100');
+                    }, 500);
+                } else {
+                    console.error('Error from Netlify Function:', result);
+                    showErrorMessage(result.message || 'There was a problem submitting your response.');
                 }
-            });
-
-            function showErrorMessage(message) {
-                const existingError = form.querySelector('.error-message');
-                if (existingError) {
-                    existingError.remove();
-                }
-                
-                const errorMessageDiv = document.createElement('div');
-                errorMessageDiv.textContent = message;
-                errorMessageDiv.className = 'error-message bg-red-900 border border-red-700 text-red-100 px-4 py-3 rounded-lg relative mt-4 text-center';
-                form.prepend(errorMessageDiv);
+            } catch (error) {
+                console.error('Network or unknown error:', error);
+                showErrorMessage('A network error occurred. Please check your internet connection and try again.');
+            } finally {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
             }
         });
-    </script>
+
+        function showErrorMessage(message) {
+            const existingError = form.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            const errorMessageDiv = document.createElement('div');
+            errorMessageDiv.textContent = message;
+            errorMessageDiv.className = 'error-message bg-red-900 border border-red-700 text-red-100 px-4 py-3 rounded-lg relative mt-4 text-center';
+            form.prepend(errorMessageDiv);
+        }
+
+        // --- INITIALIZATION ---
+        // Run the visibility function once on page load to set the correct initial state for the address
+        updateAddressVisibility();
+
+    });
+</script>
 
 </body>
 </html>
