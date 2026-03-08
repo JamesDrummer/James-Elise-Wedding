@@ -44,21 +44,19 @@ exports.handler = async (event, context) => {
         };
     }
 
-    // --- Server-Side Validation (Optional but Recommended) ---
-    // Still good to have basic validation here before forwarding
-    if (requestBody.attendance === 'yes' && (!requestBody.attendees || requestBody.attendees.trim() === '')) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ message: 'Names of attending guests are required if attending.' }),
-        };
+    // --- Server-Side Validation ---
+    if (!requestBody.guestName || requestBody.guestName.trim() === '') {
+        return { statusCode: 400, body: JSON.stringify({ message: 'Guest name is required.' }) };
     }
-    if (requestBody.attendance === 'yes' && (!requestBody.address || requestBody.address.trim() === '')) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ message: 'Mailing address is required if attending.' }),
-        };
+    if (!requestBody.starter || requestBody.starter.trim() === '') {
+        return { statusCode: 400, body: JSON.stringify({ message: 'A starter choice is required.' }) };
     }
-    // Add more validation as needed
+    if (!requestBody.main || requestBody.main.trim() === '') {
+        return { statusCode: 400, body: JSON.stringify({ message: 'A main course choice is required.' }) };
+    }
+    if (!requestBody.dessert || requestBody.dessert.trim() === '') {
+        return { statusCode: 400, body: JSON.stringify({ message: 'A dessert choice is required.' }) };
+    }
 
     // Re-stringify the body to send it as JSON to n8n
     const payloadToSend = JSON.stringify(requestBody);
