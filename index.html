@@ -56,15 +56,14 @@
         <div id="form-container">
             <h1 class="font-ornate text-5xl md:text-6xl text-brand-heading mb-4" style="text-shadow: 0 0 8px rgba(250, 204, 21, 0.3);">Elise & James' Wedding</h1>
             <h2 class="font-montserrat font-normal text-xl text-brand-text mt-0 mb-8 border-b border-brand-border pb-6">Battle Abbey School | 8th August 2026</h2>
-            
-            <!-- Instructions Info Box -->
-            <div class="animate-fade-in-up rounded-xl border border-brand-accent/40 bg-gradient-to-br from-brand-accent/10 to-brand-card p-5 mb-8 text-left" style="animation-delay: 0.02s">
-                <p class="text-brand-text text-sm leading-relaxed">
-                    <span class="text-brand-accent font-medium">Please complete this form once per adult attendee.</span> Each person in your party should submit their own meal selections using this form.
-                </p>
+
+            <!-- Per-guest instruction -->
+            <div class="animate-fade-in-up rounded-xl border border-brand-accent/40 bg-gradient-to-br from-brand-accent/10 to-brand-card px-5 py-4 mb-6 text-center" style="animation-delay: 0.02s;">
+                <p class="text-brand-accent font-medium text-sm tracking-wide mb-1" style="letter-spacing: 0.06em;">Please fill out this form once per guest.</p>
+                <p class="text-brand-text text-sm leading-relaxed">Each adult guest should submit their own meal choices individually.</p>
             </div>
-            
-            <p class="text-base leading-relaxed mb-6">Your invitation to our wedding celebration has been confirmed. Please select your meal choices below, we can't wait to celebrate with you!</p>
+
+            <p class="text-base leading-relaxed mb-6">Please select your meal choices below — we can't wait to celebrate with you!</p>
 
             <!-- Info Box: Dietary Accommodation (amber/gold tint) -->
             <div class="animate-fade-in-up rounded-xl border border-brand-accent/40 bg-gradient-to-br from-brand-accent/10 to-brand-card p-5 mb-8 text-left" style="animation-delay: 0.05s">
@@ -82,15 +81,15 @@
 
             <form id="rsvp-form" class="text-left">
 
-                <!-- Field 1: Guest Name(s) -->
-                <label for="guestName" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Guest Name(s): <span class="text-red-500">*</span></label>
-                <input type="text" id="guestName" name="guestName" required placeholder="e.g., John & Jane Smith" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
+                <!-- Field 1: Guest Name -->
+                <label for="guestName" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Your Name: <span class="text-red-500">*</span></label>
+                <input type="text" id="guestName" name="guestName" required placeholder="e.g., Jane Smith" class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
 
                 <!-- Field 2: Starter -->
                 <label for="starter" class="font-medium mb-2 mt-5 block text-sm text-brand-text">Starter: <span class="text-red-500">*</span></label>
                 <select id="starter" name="starter" required class="w-full p-3 bg-brand-dark border border-brand-border rounded-lg text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition">
                     <option value="" disabled selected>Please select a starter...</option>
-                    <option value="anti-pasti">Anti-pasti — Italian cold meats, olives, buffalo mozzarella, oil &amp; balsamic bread</option>
+                    <option value="anti-pasti">Antipasti - Italian cold meats, olives, buffalo mozzarella, oil &amp; balsamic bread</option>
                     <option value="smoked-salmon">Smoked salmon with pickled red onion, horseradish cream &amp; capers</option>
                 </select>
 
@@ -100,7 +99,7 @@
                     <option value="" disabled selected>Please select a main course...</option>
                     <option value="roast-chicken">Traditional roast chicken wrapped in bacon with stuffing &amp; Yorkshire pudding, served with roast potatoes</option>
                     <option value="braised-beef">Braised beef steak with creamy peppercorn sauce, served with roast potatoes</option>
-                    <option value="pan-roasted-gnocchi">Pan-roasted gnocchi with slow-roasted vine tomatoes, pine nut &amp; rocket, served with roast potatoes</option>
+                    <option value="pan-roasted-gnocchi">Pan roasted gnocchi with slow roasted vine tomatoes, pine nut &amp; rocket, served with roast potatoes (Ve)</option>
                 </select>
 
                 <!-- Field 4: Dessert -->
