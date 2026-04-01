@@ -1,55 +1,30 @@
 // netlify/functions/rsvp-forwarder.js
-// No crypto module needed for Header Auth
-// const crypto = require('crypto');
 const fetch = require('node-fetch');
 
-// IMPORTANT: This secret MUST match the secret configured in your n8n Webhook trigger!
-// It's securely pulled from Netlify's environment variables at runtime.
 const N8N_WEBHOOK_SECRET = process.env.N8N_WEBHOOK_SECRET;
-
-// IMPORTANT: This is the EXACT URL of your n8n Webhook trigger.
-// Ensure it is HTTPS and the full URL including the unique ID.
-const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL; // <--- **Set this in your Netlify environment variables**
-
-// IMPORTANT: This header name MUST match the "Header Name" configured in your n8n Webhook trigger's Header Auth settings.
-const N8N_AUTH_HEADER_NAME = 'X-API-KEY'; // <--- **REPLACE IF YOUR N8N HEADER NAME IS DIFFERENT**
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL;
+const N8N_AUTH_HEADER_NAME = 'X-API-KEY';
 
 exports.handler = async (event, context) => {
-    // Ensure it's a POST request
     if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            body: JSON.stringify({ message: 'Method Not Allowed' }),
-        };
+        return { statusCode: 405, body: JSON.stringify({ message: 'Method Not Allowed' }) };
     }
 
-    // Ensure the N8N_WEBHOOK_SECRET is set
     if (!N8N_WEBHOOK_SECRET) {
         console.error('N8N_WEBHOOK_SECRET environment variable is not set!');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: 'Server configuration error.' }),
-        };
+        return { statusCode: 500, body: JSON.stringify({ message: 'Server configuration error.' }) };
     }
-    
+
     let requestBody;
     try {
-        // Parse the incoming JSON body from the frontend form
         requestBody = JSON.parse(event.body);
     } catch (error) {
         console.error('Failed to parse request body:', error);
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ message: 'Bad Request - Invalid JSON' }),
-        };
+        return { statusCode: 400, body: JSON.stringify({ message: 'Bad Request - Invalid JSON' }) };
     }
 
-    // --- Server-Side Validation ---
     if (!requestBody.guestName || requestBody.guestName.trim() === '') {
         return { statusCode: 400, body: JSON.stringify({ message: 'Guest name is required.' }) };
-    }
-    if (!requestBody.starter || requestBody.starter.trim() === '') {
-        return { statusCode: 400, body: JSON.stringify({ message: 'A starter choice is required.' }) };
     }
     if (!requestBody.main || requestBody.main.trim() === '') {
         return { statusCode: 400, body: JSON.stringify({ message: 'A main course choice is required.' }) };
@@ -58,15 +33,12 @@ exports.handler = async (event, context) => {
         return { statusCode: 400, body: JSON.stringify({ message: 'A dessert choice is required.' }) };
     }
 
-    // Re-stringify the body to send it as JSON to n8n
     const payloadToSend = JSON.stringify(requestBody);
 
-    // Forward the request to n8n with the Secret Key directly in a header
     try {
         const headers = {
             'Content-Type': 'application/json',
-            // Add the authentication header with the secret value
-            [N8N_AUTH_HEADER_NAME]: N8N_WEBHOOK_SECRET, 
+            [N8N_AUTH_HEADER_NAME]: N8N_WEBHOOK_SECRET,
         };
 
         const response = await fetch(N8N_WEBHOOK_URL, {
@@ -75,32 +47,19 @@ exports.handler = async (event, context) => {
             body: payloadToSend,
         });
 
-        // Check if n8n responded with an OK status (2xx)
         if (!response.ok) {
             console.error(`Error forwarding to n8n: ${response.status} ${response.statusText}`);
             const errorBody = await response.text();
             console.error('n8n error response:', errorBody);
-
-            // Return a generic error to the client
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ message: 'Internal server error while processing RSVP (n8n issue).' }),
-            };
+            return { statusCode: 500, body: JSON.stringify({ message: 'Internal server error while processing submission (n8n issue).' }) };
         }
 
-        const n8nResponse = await response.json(); 
+        const n8nResponse = await response.json();
         console.log('Successfully forwarded to n8n:', n8nResponse);
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: 'RSVP submitted successfully!' }),
-        };
+        return { statusCode: 200, body: JSON.stringify({ message: 'Meal choices submitted successfully!' }) };
 
     } catch (error) {
         console.error('Network or forwarding error:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: 'Internal server error (network/function issue).' }),
-        };
+        return { statusCode: 500, body: JSON.stringify({ message: 'Internal server error (network/function issue).' }) };
     }
 };
