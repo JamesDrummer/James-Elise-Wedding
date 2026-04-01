@@ -26,6 +26,9 @@ exports.handler = async (event, context) => {
     if (!requestBody.guestName || requestBody.guestName.trim() === '') {
         return { statusCode: 400, body: JSON.stringify({ message: 'Guest name is required.' }) };
     }
+    if (!requestBody.starter || requestBody.starter.trim() === '') {
+        return { statusCode: 400, body: JSON.stringify({ message: 'A starter choice is required.' }) };
+    }
     if (!requestBody.main || requestBody.main.trim() === '') {
         return { statusCode: 400, body: JSON.stringify({ message: 'A main course choice is required.' }) };
     }
